@@ -1,11 +1,9 @@
 # Pagina de inicio: hero, catalogo de salas y contacto.
 import reflex as rx
-
 from studiotrack_frontend.theme import COLORS, FONT_DISPLAY, FONT_BODY
 from studiotrack_frontend.state import State
 from studiotrack_frontend.components.navbar import navbar
 from studiotrack_frontend.components.sala_card import sala_card
-
 
 def index() -> rx.Component:
     return rx.box(
@@ -70,7 +68,7 @@ def index() -> rx.Component:
         rx.box(
             rx.heading("Contacto", font_family=FONT_DISPLAY, color=COLORS["text_primary"], size="6"),
             rx.text(
-                "StudioTrack — Santo Domingo. Tel: 809-555-0000. info@studiotrack.do",
+                "StudioTrack — Santo Domingo. Tel: 849-215-2599. byshokcomusiic@gmail.com",
                 font_family=FONT_BODY,
                 color=COLORS["text_muted"],
             ),
