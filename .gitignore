@@ -1,3 +1,7 @@
+*.db
+*.py[cod]
+.states
+.web
 venv/
 __pycache__/
 *.pyc
