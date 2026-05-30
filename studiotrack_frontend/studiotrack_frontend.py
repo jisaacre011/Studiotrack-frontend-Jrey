@@ -1,36 +1,20 @@
-"""Welcome to Reflex! This file outlines the steps to create a basic app."""
-
+# App principal de StudioTrack.
+# Registra las 3 paginas con sus rutas y carga las fuentes de Google.
 import reflex as rx
 
-from rxconfig import config
+from studiotrack_frontend.theme import COLORS
+from studiotrack_frontend.pages.index import index
+from studiotrack_frontend.pages.sala import sala
+from studiotrack_frontend.pages.reservar import reservar
 
+app = rx.App(
+    style={"font_family": "'IBM Plex Mono', monospace"},
+    stylesheets=[
+        "https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap",
+    ],
+)
 
-class State(rx.State):
-    """The app state."""
-
-
-def index() -> rx.Component:
-    # Welcome Page (Index)
-    return rx.container(
-        rx.color_mode.button(position="top-right"),
-        rx.vstack(
-            rx.heading("Welcome to Reflex!", size="9"),
-            rx.text(
-                "Get started by editing ",
-                rx.code(f"{config.app_name}/{config.app_name}.py"),
-                size="5",
-            ),
-            rx.link(
-                rx.button("Check out our docs!"),
-                href="https://reflex.dev/docs/getting-started/introduction/",
-                is_external=True,
-            ),
-            spacing="5",
-            justify="center",
-            min_height="85vh",
-        ),
-    )
-
-
-app = rx.App()
-app.add_page(index)
+# Registro de rutas.
+app.add_page(index, route="/", title="StudioTrack")
+app.add_page(sala, route="/sala/[id]", title="Detalle de sala")
+app.add_page(reservar, route="/reservar", title="Reservar")
