@@ -13,7 +13,7 @@ def carrusel(items: rx.Component, scroll_id: str = _SCROLL_ID, con_flechas: bool
         flex_direction="row",
         gap="1.5em",
         overflow_x="auto",
-        padding="1em 2em 1.5em 2em",
+        padding="1em 1em 1.5em 1em",
         scroll_behavior="smooth",
         style={
             "scrollbarWidth": "thin",
@@ -23,7 +23,10 @@ def carrusel(items: rx.Component, scroll_id: str = _SCROLL_ID, con_flechas: bool
                 "background": COLORS["accent_purple"],
                 "borderRadius": "4px",
             },
+            "& > *": {"flexShrink": "0"},
         },
+        max_width="1200px",
+        margin="0 auto",
         width="100%",
     )
     if not con_flechas:
@@ -45,17 +48,22 @@ def carrusel(items: rx.Component, scroll_id: str = _SCROLL_ID, con_flechas: bool
             cursor="pointer",
             font_family=FONT_BODY,
             font_size="1.2em",
+            style={"pointerEvents": "auto"},
         )
 
     return rx.box(
         rx.hstack(
-            _flecha("<", -600),
+            _flecha("<", -700),
             rx.spacer(),
-            _flecha(">", 600),
+            _flecha(">", 700),
             width="100%",
-            padding_x="2em",
+            max_width="1280px",
+            margin="0 auto",
+            padding_x="0",
             position="absolute",
             top="40%",
+            left="0",
+            right="0",
             z_index="5",
             style={"pointerEvents": "none"},
         ),

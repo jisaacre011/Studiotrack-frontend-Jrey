@@ -1,3 +1,5 @@
+@'
+# Carrusel horizontal reutilizable.
 import reflex as rx
 from studiotrack_frontend.theme import COLORS, FONT_BODY
 
@@ -12,7 +14,7 @@ def carrusel(items: rx.Component, scroll_id: str = _SCROLL_ID, con_flechas: bool
         flex_direction="row",
         gap="1.5em",
         overflow_x="auto",
-        padding="1em 2em 1.5em 2em",
+        padding="1em 1em 1.5em 1em",
         scroll_behavior="smooth",
         style={
             "scrollbarWidth": "thin",
@@ -24,7 +26,7 @@ def carrusel(items: rx.Component, scroll_id: str = _SCROLL_ID, con_flechas: bool
             },
             "& > *": {"flexShrink": "0"},
         },
-        max_width="1450px",
+        max_width="1200px",
         margin="0 auto",
         width="100%",
     )
@@ -56,9 +58,13 @@ def carrusel(items: rx.Component, scroll_id: str = _SCROLL_ID, con_flechas: bool
             rx.spacer(),
             _flecha(">", 700),
             width="100%",
-            padding_x="2em",
+            max_width="1280px",
+            margin="0 auto",
+            padding_x="0",
             position="absolute",
             top="40%",
+            left="0",
+            right="0",
             z_index="5",
             style={"pointerEvents": "none"},
         ),
@@ -66,3 +72,4 @@ def carrusel(items: rx.Component, scroll_id: str = _SCROLL_ID, con_flechas: bool
         position="relative",
         width="100%",
     )
+'@ | Set-Content components\carrusel.py -Encoding UTF8
