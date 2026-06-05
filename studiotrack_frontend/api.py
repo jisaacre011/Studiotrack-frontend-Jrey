@@ -36,3 +36,75 @@ async def crear_transaccion(data: dict) -> dict:
         resp.raise_for_status()
         return resp.json()
 
+
+# --- Operaciones de administrador (requieren clave en header) ---
+
+def _admin_headers(key: str) -> dict:
+    return {"X-Admin-Key": key}
+
+
+async def admin_login(key: str) -> bool:
+    async with httpx.AsyncClient() as client:
+        resp = await client.post(f"{API_URL}/admin/login", headers=_admin_headers(key), timeout=10)
+        return resp.status_code == 200
+
+
+async def crear_estudio(data: dict, key: str) -> dict:
+    async with httpx.AsyncClient() as client:
+        resp = await client.post(f"{API_URL}/estudios", json=data, headers=_admin_headers(key), timeout=10)
+        resp.raise_for_status()
+        return resp.json()
+
+
+async def editar_estudio(eid: int, data: dict, key: str) -> dict:
+    async with httpx.AsyncClient() as client:
+        resp = await client.put(f"{API_URL}/estudios/{eid}", json=data, headers=_admin_headers(key), timeout=10)
+        resp.raise_for_status()
+        return resp.json()
+
+
+async def borrar_estudio(eid: int, key: str):
+    async with httpx.AsyncClient() as client:
+        resp = await client.delete(f"{API_URL}/estudios/{eid}", headers=_admin_headers(key), timeout=10)
+        resp.raise_for_status()
+
+
+async def get_productos() -> list[dict]:
+    async with httpx.AsyncClient() as client:
+        resp = await client.get(f"{API_URL}/productos", timeout=10)
+        resp.raise_for_status()
+        return resp.json()
+
+
+async def crear_producto(data: dict, key: str) -> dict:
+    async with httpx.AsyncClient() as client:
+        resp = await client.post(f"{API_URL}/productos", json=data, headers=_admin_headers(key), timeout=10)
+        resp.raise_for_status()
+        return resp.json()
+
+
+async def editar_producto(pid: int, data: dict, key: str) -> dict:
+    async with httpx.AsyncClient() as client:
+        resp = await client.put(f"{API_URL}/productos/{pid}", json=data, headers=_admin_headers(key), timeout=10)
+        resp.raise_for_status()
+        return resp.json()
+
+
+async def borrar_producto(pid: int, key: str):
+    async with httpx.AsyncClient() as client:
+        resp = await client.delete(f"{API_URL}/productos/{pid}", headers=_admin_headers(key), timeout=10)
+        resp.raise_for_status()
+
+
+async def get_reservas(key: str) -> list[dict]:
+    async with httpx.AsyncClient() as client:
+        resp = await client.get(f"{API_URL}/reservas", timeout=10)
+        resp.raise_for_status()
+        return resp.json()
+
+
+async def get_transacciones(key: str) -> list[dict]:
+    async with httpx.AsyncClient() as client:
+        resp = await client.get(f"{API_URL}/transacciones", headers=_admin_headers(key), timeout=10)
+        resp.raise_for_status()
+        return resp.json()
