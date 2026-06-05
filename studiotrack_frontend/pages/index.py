@@ -5,6 +5,7 @@ from studiotrack_frontend.theme import COLORS, FONT_DISPLAY, FONT_BODY
 from studiotrack_frontend.state import State
 from studiotrack_frontend.components.navbar import navbar
 from studiotrack_frontend.components.sala_card import sala_card
+from studiotrack_frontend.components.carrusel import carrusel
 
 
 def index() -> rx.Component:
@@ -57,12 +58,10 @@ def index() -> rx.Component:
             rx.cond(
                 State.error != "",
                 rx.text(State.error, color=COLORS["accent_coral"], padding="2em"),
-                rx.flex(
+                carrusel(
                     rx.foreach(State.estudios, sala_card),
-                    wrap="wrap",
-                    gap="1.5em",
-                    padding="2em",
-                    justify="center",
+                    scroll_id="carrusel-salas",
+                    con_flechas=True,
                 ),
             ),
         ),
