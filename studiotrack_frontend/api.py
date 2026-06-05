@@ -28,3 +28,11 @@ async def crear_reserva(data: dict) -> dict:
         resp = await client.post(f"{API_URL}/reservas", json=data, timeout=10)
         resp.raise_for_status()
         return resp.json()
+
+
+async def crear_transaccion(data: dict) -> dict:
+    async with httpx.AsyncClient() as client:
+        resp = await client.post(f"{API_URL}/transacciones", json=data, timeout=10)
+        resp.raise_for_status()
+        return resp.json()
+

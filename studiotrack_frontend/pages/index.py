@@ -1,9 +1,11 @@
 # Pagina de inicio: hero, catalogo de salas y contacto.
 import reflex as rx
+
 from studiotrack_frontend.theme import COLORS, FONT_DISPLAY, FONT_BODY
 from studiotrack_frontend.state import State
 from studiotrack_frontend.components.navbar import navbar
 from studiotrack_frontend.components.sala_card import sala_card
+
 
 def index() -> rx.Component:
     return rx.box(
@@ -63,6 +65,20 @@ def index() -> rx.Component:
                     justify="center",
                 ),
             ),
+        ),
+        # --- EQUIPOS / TIENDA ---
+        rx.heading("Equipos en venta y alquiler", font_family=FONT_DISPLAY,
+                   color=COLORS["text_primary"], size="7", padding_left="2em", margin_top="2em"),
+        rx.text("Visita nuestra tienda de equipos profesionales.",
+                font_family=FONT_BODY, color=COLORS["text_muted"], padding_left="2em"),
+        rx.center(
+            rx.link(
+                rx.button("Ir a la tienda", background=COLORS["accent_purple"], color="white",
+                          border_radius="10px", padding="0.9em 2em", font_family=FONT_BODY,
+                          font_weight="600", cursor="pointer"),
+                href="/tienda",
+            ),
+            padding="1.5em",
         ),
         # --- CONTACTO ---
         rx.box(

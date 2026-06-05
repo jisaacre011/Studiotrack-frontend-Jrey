@@ -1,11 +1,13 @@
 # App principal de StudioTrack.
-# Registra las 3 paginas con sus rutas y carga las fuentes de Google.
+# Registra las 4 paginas con sus rutas y carga las fuentes de Google.
 import reflex as rx
 
 from studiotrack_frontend.theme import COLORS
 from studiotrack_frontend.pages.index import index
 from studiotrack_frontend.pages.sala import sala
 from studiotrack_frontend.pages.reservar import reservar
+from studiotrack_frontend.pages.tienda import tienda # <-- Nueva importación añadida
+from studiotrack_frontend.pages.admin import admin
 
 app = rx.App(
     style={"font_family": "'IBM Plex Mono', monospace"},
@@ -18,3 +20,6 @@ app = rx.App(
 app.add_page(index, route="/", title="StudioTrack")
 app.add_page(sala, route="/sala/[id]", title="Detalle de sala")
 app.add_page(reservar, route="/reservar", title="Reservar")
+app.add_page(tienda, route="/tienda", title="Tienda") # <-- Nueva ruta registrada
+app.add_page(admin, route="/admin", title="Admin")
+
