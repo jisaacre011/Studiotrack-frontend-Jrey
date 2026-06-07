@@ -108,3 +108,17 @@ async def get_transacciones(key: str) -> list[dict]:
         resp = await client.get(f"{API_URL}/transacciones", headers=_admin_headers(key), timeout=10)
         resp.raise_for_status()
         return resp.json()
+
+async def get_planes() -> list[dict]:
+    async with httpx.AsyncClient() as client:
+        resp = await client.get(f"{API_URL}/planes", timeout=10)
+        resp.raise_for_status()
+        return resp.json()
+
+
+async def editar_precio_plan(plan_id: int, precio: float, key: str) -> dict:
+    async with httpx.AsyncClient() as client:
+        resp = await client.put(f"{API_URL}/planes/{plan_id}/precio",
+                                json={"precio": precio}, headers=_admin_headers(key), timeout=10)
+        resp.raise_for_status()
+        return resp.json()
