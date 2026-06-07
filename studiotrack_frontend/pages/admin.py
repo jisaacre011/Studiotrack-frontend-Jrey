@@ -178,6 +178,30 @@ def _panel_trans() -> rx.Component:
     )
 
 
+def _fila_plan(p: dict) -> rx.Component:
+    return rx.hstack(
+        rx.text(p["nombre"], color=COLORS["text_primary"], font_family=FONT_BODY, width="30%"),
+        rx.text(f"Actual: ${p['precio']}", color=COLORS["accent_amber"], font_family=FONT_BODY,
+                width="20%"),
+        rx.input(placeholder="Nuevo precio", type="number",
+                 on_change=lambda v: AdminState.set_plan_precio(p["id"], v),
+                 background=COLORS["bg_card"], color=COLORS["text_primary"], width="25%"),
+        rx.button("Actualizar", on_click=lambda: AdminState.guardar_precio_plan(p["id"]),
+                  background=COLORS["accent_teal"], color="white", border_radius="6px",
+                  cursor="pointer", size="1"),
+        width="100%", padding="0.5em", border_bottom=f"1px solid {COLORS['border']}", align="center",
+    )
+
+
+def _panel_planes() -> rx.Component:
+    return rx.vstack(
+        rx.heading("Editar precios de planes", font_family=FONT_DISPLAY,
+                   color=COLORS["text_primary"], size="5"),
+        rx.foreach(AdminState.planes, _fila_plan),
+        spacing="2", width="100%", **CARD_STYLE,
+    )
+
+
 def admin() -> rx.Component:
     return rx.cond(
         AdminState.autenticado,
@@ -196,6 +220,7 @@ def admin() -> rx.Component:
                 _tab_btn("Productos", "productos"),
                 _tab_btn("Reservas", "reservas"),
                 _tab_btn("Transacciones", "transacciones"),
+                _tab_btn("Planes", "planes"),
                 spacing="3", padding="1.5em 2em",
             ),
             rx.cond(AdminState.mensaje != "",
@@ -208,6 +233,7 @@ def admin() -> rx.Component:
                     ("productos", _panel_productos()),
                     ("reservas", _panel_reservas()),
                     ("transacciones", _panel_trans()),
+                    ("planes", _panel_planes()),
                     _panel_salas(),
                 ),
                 padding="0 2em 3em 2em",
@@ -216,3 +242,6 @@ def admin() -> rx.Component:
         ),
         _login(),
     )
+
+
+

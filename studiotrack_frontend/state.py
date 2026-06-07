@@ -10,6 +10,7 @@ class State(rx.State):
     estudios: list[dict] = []
     cargando: bool = False
     error: str = ""
+    planes: list[dict] = []
 
     # --- Detalle de sala (pagina sala) ---
     sala_actual: dict[str, Any] = {}
@@ -96,3 +97,10 @@ class State(rx.State):
             self.reserva_total = float(resultado["total"])
         except Exception:
             self.reserva_error = "No se pudo registrar la reserva. Revisa los datos e intenta de nuevo."
+
+    async def cargar_planes(self):
+        try:
+            self.planes = await api.get_planes()
+        except Exception:
+            pass
+

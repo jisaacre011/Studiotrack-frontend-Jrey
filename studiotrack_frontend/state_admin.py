@@ -34,6 +34,8 @@ class AdminState(rx.State):
     f_prod_imagen: str = ""
 
     mensaje: str = ""
+    planes: list[dict] = []
+    plan_precio_edit: dict[int, str] = {}
 
     def set_clave_input(self, val: str): self.clave_input = val
     def set_f_sala_nombre(self, val: str): self.f_sala_nombre = val
@@ -79,6 +81,7 @@ class AdminState(rx.State):
             self.productos = await api.get_productos()
             self.reservas = await api.get_reservas(self.clave_input)
             self.transacciones = await api.get_transacciones(self.clave_input)
+            self.planes = await api.get_planes()
         except Exception:
             self.mensaje = "Error al cargar datos."
 
@@ -184,3 +187,23 @@ class AdminState(rx.State):
             self.mensaje = "Producto eliminado."
         except Exception:
             self.mensaje = "No se pudo eliminar el producto."
+
+
+
+    def set_plan_precio(self, plan_id: int, valor: str):
+        nuevo = dict(self.plan_precio_edit)
+        nuevo[plan_id] = valor
+        self.plan_precio_edit = nuevo
+
+    async def guardar_precio_plan(self, plan_id: int):
+        self.mensaje = ""
+        try:
+            nuevo_precio = float(self.plan_precio_edit.get(plan_id, 0))
+            if nuevo_precio <= 0:
+                self.mensaje = "Precio invalido."
+                return
+            await api.editar_precio_plan(plan_id, nuevo_precio, self.clave_input)
+            self.planes = await api.get_planes()
+            self.mensaje = "Precio actualizado."
+        except Exception:
+            self.mensaje = "Error al actualizar el precio."
