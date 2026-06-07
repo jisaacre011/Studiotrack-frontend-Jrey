@@ -1,6 +1,5 @@
 # Barra de navegacion compartida por todas las paginas.
 import reflex as rx
-
 from studiotrack_frontend.theme import COLORS, FONT_DISPLAY, FONT_BODY
 
 
@@ -14,7 +13,10 @@ def navbar() -> rx.Component:
         ),
         rx.spacer(),
         rx.link("Inicio", href="/", color=COLORS["text_primary"], font_family=FONT_BODY),
+        rx.link("Tienda", href="/tienda", color=COLORS["text_primary"], font_family=FONT_BODY),
         rx.link("Reservar", href="/reservar", color=COLORS["text_primary"], font_family=FONT_BODY),
+        rx.link("Admin", href="/admin", color=COLORS["text_muted"], font_family=FONT_BODY,
+                font_size="0.85em"),
         width="100%",
         padding="1.2em 2em",
         background=COLORS["bg_surface"],
